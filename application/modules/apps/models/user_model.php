@@ -32,7 +32,7 @@ class User_model extends MY_Model {
 		$this->db->where("$main_table.deleted_at is null");
 		$this->db->where("$main_table.user_group", "customer");
 		$this->db->where("$main_table.customer_id", $userData->id);
-		$this->db->join("user_journals as uj", "$main_table.id = uj.user_id");
+		$this->db->join("user_journals as uj", "$main_table.id = uj.user_id", "LEFT");
 		$this->db->join("user_position as up", "$main_table.position = up.id", "LEFT");
 		$this->db->order_by($this->order);
 		$this->db->limit($this->limit, $this->offset);
@@ -72,7 +72,7 @@ class User_model extends MY_Model {
 	public function getByCustomer($customerId) {
 		$main_table = $this->table;
 		$this->db->select("$main_table.*, SUM(credit_point) AS credit_point", FALSE);
-		$this->db->join("user_journals as uj", "$main_table.id = uj.user_id");
+		$this->db->join("user_journals as uj", "$main_table.id = uj.user_id", "LEFT");
 		$this->db->where("customer_id", $customerId);
 		$this->db->where("$main_table.deleted_at is null");
 		$this->db->where("user_group", "customer");

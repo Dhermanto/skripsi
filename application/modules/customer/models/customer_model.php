@@ -42,7 +42,7 @@ class Customer_model extends MY_Model {
 		FROM customer_journals
 		LEFT JOIN customers AS c ON customer_journals.customer_id = c.id
 		LEFT JOIN users AS u ON customer_journals.customer_id = u.customer_id
-		WHERE c.id = $id AND u.deleted_at IS NULL AND u.user_group = 'customer' GROUP BY u.id ORDER BY user_name";
+		WHERE c.id = $id AND u.deleted_at IS NULL AND u.user_group = 'admin_bank' GROUP BY u.id ORDER BY user_name";
 		return $this->db->query($sql);
 	}
 }

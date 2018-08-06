@@ -179,8 +179,9 @@
 											</div>
 										</span>
 										<div style="display: none">
-											<form id="formAnswer" method="post" action="<?php echo base_url(); ?>apps/detail/updateAnswer" enctype="multipart/form-data">
+											<form id="formAnswer" enctype="multipart/form-data" method="post" action="<?php echo base_url(); ?>apps/detail/updateAnswer">
 												<input type="file" name="answer">
+												<input type="text" name="user_course_id" value="<?php echo $my_course->user_course_id ?>">
 												<input type="text" name="course_id" value="<?php echo $my_course->id ?>">
 												<input type="submit">
 											</form>
@@ -234,7 +235,6 @@
 		            contentType: false,
 		            processData: false,
 		            success:function(data){
-		            	console.log(data);
 		            	swal("Recorded!", "Your completion date was recorded!", "success");
 				     	$('#completion').removeClass("btn-warning");
 				     	$('#completion').addClass("bgm-lightgreen waves-effect");
@@ -260,29 +260,45 @@
 		$(document).on('change', 'input[name="answer"]', function(){
 			$('#formAnswer').submit();
 		});
-
-		$('#formAnswer').on('submit',(function(e) {
+		$('#formAnswer').on('submit',(function(e) {	
+			var formData = new FormData(this);
+			var action = $(this).attr('action');
 	        e.preventDefault();
-	        var formData = new FormData(this);
-
-	        $.ajax({
-	            type:'POST',
-	            url: $(this).attr('action'),
-	            data:formData,
-	            cache:false,
-	            contentType: false,
-	            processData: false,
-	            success:function(data){
-	                success("Uploaded file has been successful");
-	                $('#answerDone').show();
-	                $('#answerUpload').hide();
-	                console.log(data);
-	            },
-	            error: function(data){
-	                swal("Error when upload! Try again later");
-	                console.log(data);
-	            }
-	        });
+			swal({
+				title: "Are you sure?",
+			    text: "You can not repeat this process again!",
+			    type: "warning",
+			    showCancelButton: true,
+			    confirmButtonColor: '#DD6B55',
+			    confirmButtonText: 'Yes, I am sure!',
+			    cancelButtonText: "No, cancel it!",
+			    closeOnConfirm: false,
+			    closeOnCancel: false
+			},
+			function(isConfirm){		
+			    if (isConfirm){
+			   		$.ajax({
+			            type:'POST',
+			            url: action,
+			            data:formData,
+			            cache:false,
+			            contentType: false,
+			            processData: false,
+			            success: function(data) {
+			            	swal("Recorded!", "Uploaded file has been successful!", "success");
+			                $('#answerDone').show();
+			                $('#answerUpload').hide();
+			            },
+			            error: function(data) {
+			            	swal("Something error");
+			            }
+			        });
+			    } 
+			    else {
+			      	swal("Cancelled", "", "error");
+			        e.preventDefault();
+			    }
+			});	       
 	    }));
 	});
 </script>

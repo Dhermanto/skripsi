@@ -19,7 +19,6 @@ class Apps extends MX_Controller{
 
             $keranjang = $this->db->select("*, count(*) AS total")->where(array('user_id' => $id_user));
             $keranjang = $this->db->get('user_course')->row()->total;
-
             if ($userData->user_group == 'admin_bank') {
                 $credit = $this->customer_model->give_id($userData->id)->row()->credit_point;
             }

@@ -1,0 +1,12 @@
+Web Design : (Pria/Wanita) (Kode WD)
+
+    Mahir menggunakan photoshop, fireworks dan Ilustrator.
+    Memiliki Pengalaman dengan HTML5, CSS3, Javascript
+    Mengerti Adobe Flash lebih di utamakan
+    Mengerti Bootstrap, 960.gs dan sejenisnya
+    Memiliki pengalaman dengan HTML, Ajax (jQuery/Ext-Js/Mootools), CSS, PHP
+    Pengalaman dengan Framework PHP Khususnya Codeigniter atau Laravel
+    Memiliki pengalaman dalam CMS (Joomla, WordPress)
+    Mengerti konsep database
+    Memiliki pengalaman dengan Rest API
+

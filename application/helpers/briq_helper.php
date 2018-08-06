@@ -191,13 +191,18 @@ function answer_exam($answer) {
 
 function score($id) {
 	$CI    = & get_instance();
-	$check = $CI->db->query("SELECT score FROM user_course where id = $id")->row();
+	$check = $CI->db->query("SELECT score, answer_exam FROM user_course where id = $id")->row();
 
-	if ($check->score) {
-		$string = "<div id='$id'><a href='#' class='give_score' data-id='$id' data-value='$check->score'>$check->score</a></div>";
+	if ($check->answer_exam) {
+		if ($check->score) {
+			$string = "<div id='$id'><a href='#' class='give_score' data-id='$id' data-value='$check->score'>$check->score</a></div>";
+		}
+		else {
+			$string = "<div id='$id'><a href='#' class='give_score' data-id='$id' data-value='0'>Give</a></div>";
+		}		
 	}
 	else {
-		$string = "<div id='$id'><a href='#' class='give_score' data-id='$id' data-value='0'>Give</a></div>";
+		$string = "<div style='text-align:center'>-</div>";
 	}
 	return $string;
 }

@@ -40,16 +40,16 @@ class Customer extends MX_Controller{
 
         $user_group = $this->session->userdata('pengguna')->user_group;
 
-        if ($user_group === 'admin_bank') {
-            $this->grid->add_actions(array(
-                'edit' => array('show' => false),
-                'delete' => array('show' => false),
-            ));
-        }
+        // if ($user_group === 'admin_bank') {
+        //     $this->grid->add_actions(array(
+        //         'edit' => array('show' => false),
+        //         'delete' => array('show' => false),
+        //     ));
+        // }
 
-        $this->grid->add_actions(array(
-            'give' => array('show' => TRUE, 'title' => 'Give Credits', 'icon' => 'download'),
-        ));
+        // $this->grid->add_actions(array(
+        //     'give' => array('show' => TRUE, 'title' => 'Give Credits', 'icon' => 'download'),
+        // ));
 
 		$this->customer_model->set_grid_params($this->grid->params());
 		$this->grid->source($this->customer_model->get());

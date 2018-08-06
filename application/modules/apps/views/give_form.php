@@ -35,13 +35,13 @@
 												<td><?php echo $value->user_name; ?></td>
 												<td class="text-right" id="point-<?php echo $value->id ?>"><?php echo $value->credit_point; ?></td>
 												<td style="text-align: center !important">
-													<input type="text" data-point-id="<?php echo $value->id; ?>" 
+													<input type="text" data-point-id="<?php echo ($value->id); ?>" 
 														   class="form-control text-center credit" 
 														   style="width: 75px; display: inline" 
 														   value="0"
 														   name="credit[<?php echo $value->id; ?>]">
 												</td>
-												<span style="display: none" id="total-<?php echo $value->id ?>"><?php echo $value->credit_point; ?></span>
+												<span style="display: none" id="total-<?php echo $value->id ?>"><?php echo ($value->credit_point) ? $value->credit_point : 0; ?></span>
 											</tr>
 										<?php endforeach ?>
 									</tbody>
@@ -76,6 +76,9 @@
 				}
 
 				$("#point-" + pointId).text(totalCurrentPoint);
+			}
+			else if (pointVal != '') {
+				$("#point-" + pointId).text(currentPoint);
 			}
 			countAll();
 		});

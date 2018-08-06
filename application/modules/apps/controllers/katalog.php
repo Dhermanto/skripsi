@@ -69,6 +69,8 @@ class Katalog extends MX_Controller{
                 'data_keranjang' => $data_keranjang,
                 'course_category'=> $category_course,
                 'category'       => $category,
+                'user_id'        => $id_user
+                // 'userdata'       => 
             ));
         }
         else {

@@ -11,6 +11,8 @@
 		$userCourseEnrolled[] = $cek['course_id'];
 		$userCourseClosed[]   = $cek['course_closed_date'];
 	}
+
+	$credit = $this->db->query("SELECT *, IFNULL(SUM(credit_point), 0) AS credit FROM user_journals WHERE user_id = $user_id")->row()->credit;
 ?>
 <div id="page-content-wrapper">
 	<div class="container-fluid">
@@ -57,36 +59,41 @@
 													</div> <!-- //col -->
 												</div> <!-- //row -->
 												<div class="action">
-												 	<a id='daftar'href="<?php echo base_url();?>apps/katalog/course_in/<?php echo $result['id_course'];?>"
-												 		<?php if ( in_array($result['id_course'], $userCourse) ): ?>
-												 			style = "pointer-events: none; cursor: default"
-												 			class = "btn btn-warning btn-sm btn-block"
-												 			<?php 
-												 				$label = "Bookmarked";
-												 			?>
-												 		<?php elseif ( in_array($result['id_course'], $userCourseEnrolled) ): ?>
-												 			<?php 
-												 				$jumlah = array_search( $result['course_closed_date'], $userCourseClosed );
-												 			?>
-												 			<?php if ( $date < $userCourseClosed[$jumlah] ): ?>
-												 				<?php 
-												 					$label = "Enrolled";
-												 				?>
-												 				style = "pointer-events: none; cursor: default"
-												 				class = "btn btn-success btn-sm btn-block enrolled"
-												 			<?php else: ?>
-												 				<?php 
-												 					$label = "Bookmark";
-												 				?>
-												 			<?php endif ?>
-												 		<?php else: ?>
-												 				<?php 
-												 					$label = "Bookmark";
-												 				?>
-												 		<?php endif ?>
-												 	class="btn btn-primary btn-sm btn-block bookmark">
-														<?php echo $label; ?>
-												 	</a>
+													<?php if ((!$credit) || $credit < $result['credit_point']): ?>
+														<button disabled="" class="btn btn-default btn-sm btn-block">Your point is not enought</button>
+													<?php else: ?>
+													 	<a id='daftar' 
+													 		href="<?php echo base_url();?>apps/katalog/course_in/<?php echo $result['id_course'];?>"
+													 		<?php if ( in_array($result['id_course'], $userCourse) ): ?>
+													 			style = "pointer-events: none; cursor: default"
+													 			class = "btn btn-warning btn-sm btn-block"
+													 			<?php 
+													 				$label = "Bookmarked";
+													 			?>
+													 		<?php elseif ( in_array($result['id_course'], $userCourseEnrolled) ): ?>
+													 			<?php 
+													 				$jumlah = array_search( $result['course_closed_date'], $userCourseClosed );
+													 			?>
+													 			<?php if ( $date < $userCourseClosed[$jumlah] ): ?>
+													 				<?php 
+													 					$label = "Enrolled";
+													 				?>
+													 				style = "pointer-events: none; cursor: default"
+													 				class = "btn btn-success btn-sm btn-block enrolled"
+													 			<?php else: ?>
+													 				<?php 
+													 					$label = "Bookmark";
+													 				?>
+													 			<?php endif ?>
+													 		<?php else: ?>
+													 				<?php 
+													 					$label = "Bookmark";
+													 				?>
+													 		<?php endif ?>
+													 	class="btn btn-primary btn-sm btn-block bookmark">
+															<?php echo $label; ?>
+													 	</a>
+												 	<?php endif ?>
 												</div>
 											</div> <!-- //detail -->
 										</div> <!-- //meta -->

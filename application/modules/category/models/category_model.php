@@ -30,6 +30,14 @@ class Category_model extends MY_Model {
 		return $this->db->get($main_table);
 	}
 
+	public function count()
+	{
+		$main_table = $this->table;
+		$this->filter();
+		$this->db->where('deleted_by is null');
+		return $this->db->get($main_table);
+	}	
+
 	public function getAll()
 	{
 		$main_table = $this->table;

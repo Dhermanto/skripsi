@@ -27,7 +27,7 @@ class Category extends MX_Controller{
                 'category_name' => array('text' => 'Category Name'),
                 'content' => array('text' => 'Content', 'func' => 'content'),
 			),
-			'num_rows' => $this->category_model->num_rows(),
+			'num_rows' => $this->category_model->count()->num_rows(),
 			'item' => 'id',
 			'warning' => 'id',
 			'order' => 'desc',

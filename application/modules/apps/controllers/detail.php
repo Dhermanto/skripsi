@@ -65,7 +65,6 @@ class Detail extends MX_Controller{
     public function detail_in($id)
     {
         $user_id     = $this->session->userdata('user')->user_id;
-
         $data = array(
             'course_id' => $id,
             'user_id' => $user_id,
@@ -87,11 +86,11 @@ class Detail extends MX_Controller{
     public function updateAnswer() {
         $user_id  = $this->session->userdata('user')->user_id;
         $courseId = $_POST['course_id'];
-
+        $userCourseId = $_POST['user_course_id'];
         $uploadPath              = 'uploads/answer/';
         $config['upload_path']   = $uploadPath;
         $config['encrypt_name']  = TRUE;
-        $config['allowed_types'] = 'pdf|txt|gif|jpg|png';
+        $config['allowed_types'] = 'pdf|txt|doc|xls|xlsx|docx';
         $this->load->library('upload', $config);
         $dataDetail = array();
         if ( $this->upload->do_upload('answer') ){
@@ -99,7 +98,7 @@ class Detail extends MX_Controller{
             $checkExam = $this->up_model->getExamByUser($courseId, $user_id);
             $dataDetail['answer_exam']  = $fileData['file_name'];
             if ($checkExam) {
-                db_update('user_course', $dataDetail, array('id' => $checkExam->id));  
+                db_update('user_course', $dataDetail, array('id' => $userCourseId));  
             }
         }
     }

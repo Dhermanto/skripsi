@@ -120,18 +120,18 @@
 			$(".cat"+category).show();
 		}
 
-		$('.enroll').click(function(){
-	        var cek = confirm("Are You sure want to enroll this course? Once You enrolled this course, You cannot cancel it anymore.");
-	        if (cek == true) {
-	        	setInterval(function () { 
-	        		location.reload();
-	        	}, 10);
-	            return true;
-	        }
-	        else {
-	            return false;
-	        }
-	    })
+		// $('.enroll').click(function(){
+	 //        var cek = confirm("Are You sure want to enroll this course? Once You enrolled this course, You cannot cancel it anymore.");
+	 //        if (cek == true) {
+	 //        	setInterval(function () { 
+	 //        		location.reload();
+	 //        	}, 10);
+	 //            return true;
+	 //        }
+	 //        else {
+	 //            return false;
+	 //        }
+	 //    })
 	});
 </script>
 
