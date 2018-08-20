@@ -23,6 +23,7 @@ class Login_apps extends MX_Controller{
         		c.id, 
         		u.user_group,
         		u.user_name, 
+        		u.position,
         		c.customer_slug, 
         		u.id as user_id 
         		FROM customers as c, users as u 

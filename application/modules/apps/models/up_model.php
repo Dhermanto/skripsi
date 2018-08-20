@@ -19,13 +19,14 @@ class Up_model extends MY_Model {
 		return $this->db->get($main_table);
 	}
 
-	public function getExamCustomer($id_course, $id) {
+	public function getExamCustomer($id_course, $id, $position) {
 		//get exam
         $this->db->select('exam');
         $this->db->from('user_position');
-        $this->db->join('user_position_detail', 'user_position_detail.user_position_id = user_position.id', 'left');
+        $this->db->join('user_position_detail', 'user_position_detail.user_position_id = user_position.id', 'inner');
         $this->db->where('course_id', $id_course);
         $this->db->where('user_position.customer_id', $id);
+        $this->db->where('user_position.id', $position);
         return $this->db->get()->row();
 	}
 

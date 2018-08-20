@@ -40,6 +40,7 @@ class Detail extends MX_Controller{
         $course = $this->db->query("SELECT * FROM courses WHERE id = $id_course")->row();
         $id         = $this->session->userdata('user')->id;
         $id_user    = $this->session->userdata('user')->user_id;
+        $position   = $this->session->userdata('user')->position;
         //find course
         $find_course = $this->db->query("SELECT * FROM user_course WHERE user_id=$id_user AND enrollment_status = '0'");
         //cek date
@@ -48,9 +49,8 @@ class Detail extends MX_Controller{
         $my_course = $this->apps_model->course_detail($id_course, $id_user);
 
         //get exam
-        $exam      = $this->up_model->getExamCustomer($id_course, $id);
+        $exam      = $this->up_model->getExamCustomer($id_course, $id, $position);
         $checkExam = $this->up_model->getExamByUser($id_course, $id_user);
-
         $this->page->view('dashboard-detail', array(
             'course_detail' => $course,
             'course_id'     => $find_course->result_array(),
@@ -58,7 +58,7 @@ class Detail extends MX_Controller{
             'my_course'     => $my_course->row(),
             'userCourseId'  => $userCourseId,
             'exam'          => $exam,
-            'examFile'      => $checkExam->answer_exam
+            'examFile'      => isset($checkExam->answer_exam) ? $checkExam->answer_exam : ""
         ));
     }
 

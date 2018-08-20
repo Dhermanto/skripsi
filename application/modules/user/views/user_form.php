@@ -41,7 +41,7 @@
 								<?php else: ?>
 									<select name="user_group" class="chosen required" data-placeholder="Pilih Level">
 										<option value="admin" <?php echo $data->user_group == 'admin' ? 'selected' : '' ?>>Admin</option>
-										<option value="admin_bank" <?php echo $data->user_group == 'admin_bank' ? 'selected' : '' ?>>Admin Bank</option>
+										<option value="admin_bank" <?php echo $data->user_group == 'admin_bank' ? 'selected' : '' ?>>Admin Customer</option>
 									</select>
 								<?php endif ?>
 						</div>

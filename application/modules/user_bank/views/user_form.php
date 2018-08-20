@@ -42,7 +42,7 @@
 										{
 											echo "
 											<option value=\"admin\" selected>Admin</option>
-											<option value=\"admin_bank\" selected>Admin Bank</option>
+											<option value=\"admin_bank\" selected>Admin Customer</option>
 											<option value=\"customer\">Customer</option>
 											";
 										}
@@ -51,13 +51,13 @@
 											echo "
 											<option value=\"\">Choose User Group</option>
 											<option value=\"admin\">Admin</option>
-											<option value=\"admin_bank\">Admin Bank</option>
+											<option value=\"admin_bank\">Admin Customer</option>
 											<option value=\"customer\">Customer</option>";
 										}
 										else if($data->user_group == 'admin_bank')
 										{
 											echo "
-											<option value=\"admin_bank\">Admin Bank</option>
+											<option value=\"admin_bank\">Admin Customer</option>
 											<option value=\"admin\">Admin</option>
 											<option value=\"customer\">Customer</option>";
 										}
@@ -65,7 +65,7 @@
 										{
 											echo "
 											<option value=\"admin\">Admin</option>
-											<option value=\"admin_bank\">Admin Bank</option>
+											<option value=\"admin_bank\">Admin Customer</option>
 											<option value=\"customer\" selected>Customer</option>";
 										}
 									?>

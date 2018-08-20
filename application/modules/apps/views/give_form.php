@@ -33,9 +33,9 @@
 												<td><?php echo $no; 
 														$no++; ?></td>
 												<td><?php echo $value->user_name; ?></td>
-												<td class="text-right" id="point-<?php echo $value->id ?>"><?php echo $value->credit_point; ?></td>
+												<td class="text-right all-point" id="point-<?php echo $value->id ?>"><?php echo $value->credit_point; ?></td>
 												<td style="text-align: center !important">
-													<input type="text" data-point-id="<?php echo ($value->id); ?>" 
+													<input type="number" data-point-id="<?php echo ($value->id); ?>" 
 														   class="form-control text-center credit" 
 														   style="width: 75px; display: inline" 
 														   value="0"
@@ -48,7 +48,7 @@
 								</table>
 							</div>
 							<div class="col-xs-12 col-sm-10 col-md-9 col-lg-9">
-								<button type="submit" class="btn btn-lg btn-blue">Save Data</button>
+								<button type="submit" class="btn btn-lg btn-blue give">Save Data</button>
 							</div>
 						</div>
 					</div>
@@ -60,30 +60,11 @@
 </div>
 <script>
 	var totalPoint = parseInt($("#credit-point").text());
-	$(document).ready(function() {
+	$(document).ready(function(){
 		giveAll();
-		$('.credit').keyup(function(){
-			var pointId 	 = $(this).data("point-id");
-			var pointVal	 = parseInt($(this).val());
-			var currentPoint = parseInt($("#total-" + pointId).text());
-
-			if (pointVal != '') {
-				if (pointVal > 0) {
-					var totalCurrentPoint = pointVal + currentPoint;
-				}
-				else {
-					var totalCurrentPoint = 0 + currentPoint;
-				}
-
-				$("#point-" + pointId).text(totalCurrentPoint);
-			}
-			else if (pointVal != '') {
-				$("#point-" + pointId).text(currentPoint);
-			}
-			countAll();
-		});
+		give();
+		minCredit();
 	});
-
 	function giveAll() {
 		$('.give-all').click(function(){
 			var count  = 0;
@@ -97,30 +78,93 @@
 	    	creditDefisit = totalPoint - (creditAll * count);
 	    	$('.credit').val(creditAll);
 	    	$("#credit-point").text(creditDefisit);
+
+	    	$.each($('.all-point'), function(key, obj) {
+	    		var data = parseInt($(obj).text()) + creditAll;
+	    		$(obj).text(data);
+	    	});
 		});
 	}
 
-	function countAll() {
-		var countPoint = 0;
-		$('.credit').each(function(){
-			var points 	   = parseInt($(this).val());
-
-			if (points != '') {
-				if (points > 0) {
-					countPoint += points;
-					if (countPoint > totalPoint) {
-						error("points are not enough");
-						$(this).val("");
+	var validation = 0;
+	function give() {
+		validation = 0;
+		var total = 0;
+		$('.give').click(function(e){
+			$('.credit').each(function(){
+				var points 	   = parseInt($(this).val());
+				if (points != "") {
+					if (points < 0) {
+						swal("credit point cannot be minus");
+						validation++;
 						return false;
 					}
+					else {
+						total += points;
+					}
 				}
+			});
+			if (validation == 0) {
+				if (totalPoint < total) {
+					swal("credit point is not enough");
+					return false;
+				}	
 				else {
-					countPoint += 0;	
+					e.preventDefault();
+					swal({
+					    title: "Are you sure?",
+					    text: "Are you sure you will process this?",
+					    type: "warning",
+					    showCancelButton: true,
+					    confirmButtonColor: '#DD6B55',
+					    confirmButtonText: 'Yes, I am sure!',
+					    cancelButtonText: "No, cancel it!",
+					    closeOnConfirm: false,
+					    closeOnCancel: false
+					},
+					function(isConfirm){
+					   	if (isConfirm){
+					     	swal("Succeded!", "Credit point are successfully transfered!", "success");
+					     	$('form').trigger('submit');
+					    } else {
+					      	swal("Cancelled", "your point will be returned", "error");
+					    }
+					});
 				}
 			}
+		});
+	}
 
-			var totalCredit = totalPoint - countPoint;
-			$("#credit-point").text(parseInt(totalCredit));
+	function minCredit() {
+		$('.credit').keyup(function(){
+			var pointId 	 = $(this).data("point-id");
+			var pointVal	 = parseInt($(this).val());
+			var currentPoint = parseInt($("#total-" + pointId).text());
+			if (pointVal != '') {
+				if (pointVal > 0) {
+					var totalCurrentPoint = pointVal + currentPoint;
+					var totalCredit = totalPoint - pointVal;
+				}
+				else {
+					var totalCurrentPoint = 0 + currentPoint;
+					var totalCredit = totalPoint - 0;
+				}
+
+				if (totalCredit >= 0) {
+					$("#point-" + pointId).text(totalCurrentPoint);
+				}
+			}
+			else if (pointVal != '' || pointVal == 0) {
+				var totalCredit = totalPoint - 0;
+				$("#point-" + pointId).text(currentPoint);
+			}
+
+			if (totalCredit < 0) {
+				error("points is not enough");
+			}
+			else {
+				$("#credit-point").text(parseInt(totalCredit));
+			}
 		});
 	}
 </script>

@@ -46,7 +46,7 @@ function validate_form($names)
 function admin_bank($string)
 {
 	if ($string == 'admin_bank') {
-		return "admin bank";
+		return "admin customer";
 	}
 	else {
 		return $string;

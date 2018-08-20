@@ -81,17 +81,14 @@ class PositionManagement extends MX_Controller{
 	{
 		$userData 	= $this->session->userdata('user');
         $data 		= $this->form_data();
-
         $uploadData = array();
         $count = 0;
-
         $dataDetail = array();
         $dataUserPosition 	 = array();
         $dataUserPosition['position_name'] = $data['position_name'];
         $dataUserPosition['customer_id']   = $userData->id;
         db_insert('user_position', $dataUserPosition);
         $userPosId = $this->db->insert_id();
-
         foreach ($_FILES['exam']['name'] as $key => $value) {
         	if ($value != "") {
         		$_FILES['exams']['name'] 	 = $value;
@@ -103,7 +100,7 @@ class PositionManagement extends MX_Controller{
                 $uploadPath 			 = 'uploads/exam/';
                 $config['upload_path']   = $uploadPath;
                 $config['encrypt_name']  = TRUE;
-                $config['allowed_types'] = 'pdf|txt|gif|jpg|png';
+                $config['allowed_types'] = 'pdf|txt|gif|jpg|png|doc|docx';
                 $this->load->library('upload', $config);
                 if ( $this->upload->do_upload('exams') ){
                     $fileData = $this->upload->data();
@@ -126,7 +123,6 @@ class PositionManagement extends MX_Controller{
 	{
 		$this->form('update', $id);
 	}
-
 
 	public function form_data()
 	{
@@ -152,13 +148,11 @@ class PositionManagement extends MX_Controller{
 	                $_FILES['exams']['tmp_name'] = $_FILES['exam']['tmp_name'][$key];
 	                $_FILES['exams']['error'] 	 = $_FILES['exam']['error'][$key];
 	                $_FILES['exams']['size'] 	 = $_FILES['exam']['size'][$key];
-
 	                $uploadPath 			 = 'uploads/exam/';
 	                $config['upload_path']   = $uploadPath;
 	                $config['encrypt_name']  = TRUE;
-	                $config['allowed_types'] = 'pdf|txt|gif|jpg|png';
+	                $config['allowed_types'] = 'pdf|txt|gif|jpg|png|doc|docx';
 	                $this->load->library('upload', $config);
-
 	                if ( $this->upload->do_upload('exams') ){
 	                    $fileData = $this->upload->data();
 	                    $uploadData[$key] = $fileData['file_name'];

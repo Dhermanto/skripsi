@@ -42,7 +42,7 @@
 									<!-- <?php echo modules::run('lookup/group_user', $filter['id']); ?> -->
 									<option value="admin">Admin</option>
 									<!-- <option value="customer">Customer</option> -->
-									<option value="admin_bank">Admin bank</option>
+									<option value="admin_bank">Admin customer</option>
 								</select>
 							</div>
 						</div>
