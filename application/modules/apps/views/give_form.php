@@ -35,7 +35,7 @@
 												<td><?php echo $value->user_name; ?></td>
 												<td class="text-right all-point" id="point-<?php echo $value->id ?>"><?php echo $value->credit_point; ?></td>
 												<td style="text-align: center !important">
-													<input type="number" data-point-id="<?php echo ($value->id); ?>" 
+													<input type="number" min="0" data-point-id="<?php echo ($value->id); ?>" 
 														   class="form-control text-center credit" 
 														   style="width: 75px; display: inline" 
 														   value="0"
@@ -61,6 +61,13 @@
 <script>
 	var totalPoint = parseInt($("#credit-point").text());
 	$(document).ready(function(){
+		$('html').bind('keypress', function(e)
+		{
+		   if(e.keyCode == 13)
+		   {
+		      return false;
+		   }
+		});
 		giveAll();
 		give();
 		minCredit();
@@ -88,9 +95,9 @@
 
 	var validation = 0;
 	function give() {
-		validation = 0;
 		var total = 0;
 		$('.give').click(function(e){
+			validation = 0;
 			$('.credit').each(function(){
 				var points 	   = parseInt($(this).val());
 				if (points != "") {
@@ -136,7 +143,7 @@
 	}
 
 	function minCredit() {
-		$('.credit').keyup(function(){
+		$('.credit').keyup(function(e){
 			var pointId 	 = $(this).data("point-id");
 			var pointVal	 = parseInt($(this).val());
 			var currentPoint = parseInt($("#total-" + pointId).text());
@@ -146,6 +153,7 @@
 					var totalCredit = totalPoint - pointVal;
 				}
 				else {
+					// $(this).val(0);
 					var totalCurrentPoint = 0 + currentPoint;
 					var totalCredit = totalPoint - 0;
 				}
