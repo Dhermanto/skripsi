@@ -46,10 +46,10 @@
 													border: 1px #cac4c4 solid;
 													border-radius: 5px;
 													padding: 5px;">
-											<div class="col-md-6">
+											<!-- <div class="col-md-6">
 												<input type="checkbox" class="_all" value="<?php echo $value->id ?>" id="<?php echo $value->id ?>">
 												<label class="form-check-label" for="<?php echo $value->id ?>">All</label>
-											</div>
+											</div> -->
 											<div class="col-md-6" style="margin-bottom: 10px"></div>
 											<div class="clearfix"></div>
 											<?php foreach ($courseCategory->result() as $index => $hasil): ?>

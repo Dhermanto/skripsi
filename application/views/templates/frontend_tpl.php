@@ -223,7 +223,7 @@
 			}
 		});
 
-		$('.enroll').click(function(){
+		$(document).on('click', '.enroll', function(){
 			var dataHref = $(this).data("href");
 			swal({
 			    title: "Are you sure?",

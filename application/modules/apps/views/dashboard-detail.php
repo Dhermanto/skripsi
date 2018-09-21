@@ -61,9 +61,8 @@
 								case 0:
 									echo "<div class=\"row\">
                                             <div class=\"col-md-6\">
-                                                <a href=\"".base_url("apps/katalog/course_out/enroll")."/".$userCourseId."\"
-                                                onclick=\"
-                                                window.onload('http://localhost/ilearn/apps/bookmarked');\" class=\"btn btn-primary btn-lg btn-block enroll\">ENROLL</a>
+                                                <a href=\"#\" data-href=\"".base_url("apps/katalog/course_out/enroll")."/".$userCourseId."\"
+                                                onclick=\"window.onload('http://localhost/ilearn/apps/bookmarked');\" class=\"btn btn-primary btn-lg btn-block enroll\">ENROLL</a>
                                             </div>
 											<div class=\"col-md-6\">
                                                 <a id='daftar' href=\"".base_url("apps/katalog/course_out/cancel")."/".$userCourseId."\" class=\"btn btn-danger btn-lg btn-block\">

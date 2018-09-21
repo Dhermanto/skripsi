@@ -164,7 +164,6 @@ class PositionManagement extends MX_Controller{
 		foreach ($checkId as $key => $value) {
 			array_push($oldCourse, $value->course_id);		
 		}
-
 		$oldData = array_diff($oldCourse, $data['courses']);
 		if (count($oldData) > 0) {
 			foreach ($oldData as $key => $value) {
@@ -176,7 +175,6 @@ class PositionManagement extends MX_Controller{
 				); 
 			}
 		}
-
 		//update
 		foreach ($uploadData as $key => $value) {
 			$checkCourse = $this->db->get_where('user_position_detail', 
@@ -185,7 +183,6 @@ class PositionManagement extends MX_Controller{
 					'course_id' 	   => $key,
 				)
 			)->row();
-
 			if (count($checkCourse) == 0) {
 				$dataDetail['user_position_id'] = $id;
 				$dataDetail['course_id'] 		= $key;
@@ -203,7 +200,6 @@ class PositionManagement extends MX_Controller{
 					));
 			}
 		}
-
 		$dataUserPosition = array();
 		$dataUserPosition['position_name'] = $data['position_name'];
 		db_update('user_position', $dataUserPosition, array('id' => $id));
